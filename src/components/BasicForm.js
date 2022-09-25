@@ -38,21 +38,30 @@ const BasicForm = (props) => {
 
   const fromSubmittedHandler = (event) => {
     event.preventDefault();
-    if (
-      !enteredFirtNameIsValid ||
-      !enteredLastNameIsValid ||
-      !enteredEmailIsValid
-    ) {
+    if (!formIsValid) {
       return;
     }
+    console.log('Submitted');
+    console.log(enteredFirstName, enteredLastName, enteredEmail);
     resetFirstNameInput();
     resetlastNameInput();
     resetEmailInput();
   };
+
+  const firstNameClass = firstNameInputHasError
+    ? 'form-control invalid'
+    : 'form-control';
+
+  const lastNameClass = lastNameInputHasError
+    ? 'form-control invalid'
+    : 'form-control';
+  const emailClass = emailInputHasError
+    ? 'form-control invalid'
+    : 'form-control';
   return (
     <form onSubmit={fromSubmittedHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div className={firstNameClass}>
           <label htmlFor="name">First Name</label>
           <input
             type="text"
@@ -65,7 +74,7 @@ const BasicForm = (props) => {
             <p className="error-text">First Name Must not be empty.</p>
           )}
         </div>
-        <div className="form-control">
+        <div className={lastNameClass}>
           <label htmlFor="name">Last Name</label>
           <input
             type="text"
@@ -79,7 +88,7 @@ const BasicForm = (props) => {
           )}
         </div>
       </div>
-      <div className="form-control">
+      <div className={emailClass}>
         <label htmlFor="name">E-Mail Address</label>
         <input
           type="email"
